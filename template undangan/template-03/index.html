@@ -16,24 +16,24 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#3A5A40", // Deep minimalist green
-                        secondary: "#DAD7CD", // Soft sage/cream
-                        accent: "#A3B18A", // Lighter green accent
-                        "background-light": "#FDFBF7", // Very light cream
-                        "background-dark": "#1A1C18", // Dark olive/black
+                        primary: "#2D6A4F", // Rich Emerald Green - More vibrant & elegant
+                        secondary: "#D8F3DC", // Soft Minty Cream - Fresher/Brighter
+                        accent: "#74C69D", // Medium Fresh Green
+                        "background-light": "#FAFFF5", // Very light slightly greenish white
+                        "background-dark": "#0B2518", // Darker deep green/black
                         "card-light": "#FFFFFF",
-                        "card-dark": "#242622",
-                        "text-main-light": "#344E41",
-                        "text-main-dark": "#DAD7CD",
-                        "text-sub-light": "#588157",
-                        "text-sub-dark": "#A3B18A",
+                        "card-dark": "#1B4332", // Dark rich green card
+                        "text-main-light": "#1B4332", // Deep jungle green
+                        "text-main-dark": "#D8F3DC",
+                        "text-sub-light": "#40916C", // Medium green text
+                        "text-sub-dark": "#95D5B2", // Light green text
 
                         // Legacy/Shared
-                        "accent-gold": "#C6A87C",
-                        "text-gold": "#C5A059",
+                        "accent-gold": "#D4A373", // Warmer Gold/Sand
+                        "text-gold": "#B08968",
                         "surface-light": "#FFFFFF",
-                        "surface-dark": "#242D29",
-                        "primary-light": "#90A955", // Kept for compatibility if needed
+                        "surface-dark": "#1B4332",
+                        "primary-light": "#52B788", // Bright fresh green
                     },
                     fontFamily: {
                         serif: ["'Cormorant Garamond'", "serif"],
@@ -167,7 +167,49 @@
         .scroll-element {
             /* Handled by JS adding/removing classes or just use the base style logic */
         }
+
+        /* Scroll Element Animation Class (Triggered by Observer) */
+        .scroll-element {
+            /* Handled by JS adding/removing classes or just use the base style logic */
+        }
+
+        .fade-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 3s ease-out, transform 3s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .fade-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 3s ease-out, transform 3s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .slide-left.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 3s ease-out, transform 3s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .slide-right.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
     </style>
+
     <style>
         body {
             min-height: max(884px, 100dvh);
@@ -187,34 +229,43 @@
 
         <!-- Floating Navigation Bar -->
         <nav id="floating-nav"
-            class="fixed top-0 left-0 right-0 z-50 w-full max-w-md mx-auto bg-white/80 dark:bg-background-dark/80 backdrop-blur-md shadow-lg rounded-b-xl px-4 py-3 flex justify-around items-center opacity-0 transform -translate-y-full transition-all duration-500 ease-in-out">
-            <a href="#hero"
-                class="flex flex-col items-center text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light transition-colors">
-                <span class="material-icons text-lg">home</span>
-                Home
+            class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 bg-[#FAF9F6]/85 dark:bg-[#2C2C2E]/85 backdrop-blur-xl border border-white/50 dark:border-white/10 shadow-[0_8px_32px_rgba(79,119,45,0.15)] rounded-full px-6 py-3 flex items-center justify-between gap-6 sm:gap-8 min-w-[320px] transition-all duration-300 opacity-0 translate-y-full">
+
+            <a href="#hero" class="flex flex-col items-center group relative w-12">
+                <span
+                    class="material-icons text-2xl text-primary/70 dark:text-primary-light/70 group-hover:text-primary dark:group-hover:text-primary-light transition-all duration-300 transform group-hover:-translate-y-1">home</span>
+                <span
+                    class="font-display text-[10px] mt-1 text-primary/80 dark:text-primary-light/80 tracking-wide group-hover:text-primary dark:group-hover:text-primary-light transition-colors duration-300">Home</span>
             </a>
-            <a href="#bride-groom"
-                class="flex flex-col items-center text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light transition-colors">
-                <span class="material-icons text-lg">people</span>
-                Couple
+
+            <a href="#bride-groom" class="flex flex-col items-center group relative w-12">
+                <span
+                    class="material-icons text-2xl text-primary/70 dark:text-primary-light/70 group-hover:text-primary dark:group-hover:text-primary-light transition-all duration-300 transform group-hover:-translate-y-1">favorite</span>
+                <span
+                    class="font-display text-[10px] mt-1 text-primary/80 dark:text-primary-light/80 tracking-wide font-medium group-hover:text-primary dark:group-hover:text-primary-light transition-colors duration-300">Couple</span>
             </a>
-            <a href="#events"
-                class="flex flex-col items-center text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light transition-colors">
-                <span class="material-icons text-lg">event</span>
-                Events
+
+            <a href="#events" class="flex flex-col items-center group relative w-12">
+                <span
+                    class="material-icons text-2xl text-primary/70 dark:text-primary-light/70 group-hover:text-primary dark:group-hover:text-primary-light transition-all duration-300 transform group-hover:-translate-y-1">calendar_today</span>
+                <span
+                    class="font-display text-[10px] mt-1 text-primary/80 dark:text-primary-light/80 tracking-wide group-hover:text-primary dark:group-hover:text-primary-light transition-colors duration-300">Event</span>
             </a>
-            <a href="#rsvp"
-                class="flex flex-col items-center text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light transition-colors">
-                <span class="material-icons text-lg">mail</span>
-                RSVP
+
+            <a href="#love-story" class="flex flex-col items-center group relative w-12">
+                <span
+                    class="material-icons text-2xl text-primary/70 dark:text-primary-light/70 group-hover:text-primary dark:group-hover:text-primary-light transition-all duration-300 transform group-hover:-translate-y-1">photo_library</span>
+                <span
+                    class="font-display text-[10px] mt-1 text-primary/80 dark:text-primary-light/80 tracking-wide group-hover:text-primary dark:group-hover:text-primary-light transition-colors duration-300">Gallery</span>
+            </a>
+
+            <a href="#gift" class="flex flex-col items-center group relative w-12">
+                <span
+                    class="material-icons text-2xl text-primary/70 dark:text-primary-light/70 group-hover:text-primary dark:group-hover:text-primary-light transition-all duration-300 transform group-hover:-translate-y-1">card_giftcard</span>
+                <span
+                    class="font-display text-[10px] mt-1 text-primary/80 dark:text-primary-light/80 tracking-wide group-hover:text-primary dark:group-hover:text-primary-light transition-colors duration-300">Gift</span>
             </a>
         </nav>
-
-        <!-- Theme Toggle Button -->
-        <button id="theme-toggle"
-            class="fixed bottom-24 right-4 z-50 p-3 rounded-full bg-white dark:bg-secondary text-gray-800 dark:text-white shadow-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light">
-            <span class="material-icons text-xl">brightness_4</span>
-        </button>
 
         <!-- ================= MAIN VIEW (Inner Content) ================= -->
         <div id="main-view"
@@ -222,11 +273,11 @@
 
             <!-- Hero Section (Cover 2) -->
             <section id="hero"
-                class="relative min-h-screen w-full flex flex-col justify-end items-center text-center overflow-hidden bg-black">
+                class="fade-section relative min-h-screen w-full flex flex-col justify-end items-center text-center overflow-hidden bg-black">
                 <!-- Background Image -->
                 <div class="absolute inset-0 z-0">
                     <img alt="Happy couple in white attire" class="w-full h-full object-cover object-center"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCznEokW-pR4pHT_v8rAWQ1_QFHr-s3wwvBp6VgtlLzwsBSDQKgqwYaluXpaVm84IvUWBXmNvvQArvCN2bOeZhWvWi3_7IqlIGpUUL5kJXaMKebCigiz8SBAhRRu8_gUUrBnBfVfsDbXa8QEJ6g1olc0lpg9UFR8_e-FPvbQY1QYdcu3ZwrhF5_ecyrNzW8961-mjpm5RX4MFv7VkZVAY-J6sfl0vubJogN11h4GOxyucpCjPtfdoSSRfbG-1eK2wk3Uf3vJdDuuCh86_" />
+                        src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1000&auto=format&fit=crop" />
                     <!-- Overlays -->
                     <div class="absolute inset-0 bg-gradient-overlay opacity-90"></div>
                     <div class="absolute inset-0 z-10 overflow-hidden pointer-events-none">
@@ -309,21 +360,16 @@
 
             <!-- Bride & Groom Section (New) -->
             <section id="bride-groom"
-                class="relative z-10 w-full flex flex-col items-center pt-12 pb-24 px-6 bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
+                class="relative z-10 w-full flex flex-col items-center pt-12 pb-24 px-6 bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 overflow-hidden">
                 <!-- Floral Background -->
                 <div
                     class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0 opacity-10 dark:opacity-5">
                     <img alt="Floral decoration top left"
                         class="absolute -top-20 -left-20 w-64 h-64 object-cover rounded-full blur-sm transform rotate-45 mix-blend-multiply dark:mix-blend-lighten"
                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlWTbxPjcGSo94BRLmFwNwy-zHdlrAKBz0SyaGCrh-_WHiHR_9jFnf38g2uZg351uSNzOXiqWFBcD6AznL32o5muxVoOf_zB1PYNM2eHqC3XinaWdqCCy8h_JWhTTdnP3OmaTlO4u5JgGsL6CMgQG1N4aIQrb10jej3RklmH7DEFkJXlXSzWVwFjqcI6cpqvYr2qlSzV7Nf8reTbQnHbvAG8ZXyyWjocRY83yWTUSHhfQ2wvpFA-u_l9bDNSzdL-GaxTa7QbB-PF1L" />
-                    <img alt="Floral decoration bottom right"
-                        class="absolute -bottom-20 -right-20 w-80 h-80 object-cover rounded-full blur-sm transform -rotate-12 mix-blend-multiply dark:mix-blend-lighten"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlj0WufzbJ7LdN47cu7WU4uiGFbN42QqDOCKB-eHL9BGqW_hGTt1FJEUumMu7vJusWuXu8kbg5GmMocF_JlhxMpjtAfiJF_t3GOQytrnr4O9wBfamEzreAfnI1Fjgj5eDKlDMOaAG24EEbr1GDmXXUZ5OwwVe4Vv2OGBhC6YqtwPiAiiimU5X-ze933zynSY2-GYON2vl3hhmhTkL-f3hBOoIgGRIOpunnxcF-pUolP-4PNaDiKKsjD2T6O7dCkZwQSzalIpD6VuFF" />
                 </div>
 
-                <div class="text-center mb-12 animate-fade-in-up relative z-10">
-                    <img alt="Bismillah" class="h-12 mx-auto mb-4 filter dark:invert opacity-80"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFn-NgvoZWyVmUYBgbb8LjXeWbUvIbaQG49nFzBFUYx5-OEAsn2vG67wSpvv8agDj2wstogu_F12g1h4TEa9kofKDa-UNk8ZmEh_0uFJFsIdy8neGP2jb9SGHTu0efTUbpSEMxS4eg4fsf9x-WeLzk1dQjIes1irRGkjYegWSB-8ogGSnFUWZ71gGK2X3T3-zUL-bPfqQoNc1rAQg1Y0o5dZGrwLpg1t1YWo3heAWZ-we2XvBOBwulNu1R9U2cISXDEhwzyUDtEnb5" />
+                <div class="fade-section text-center mb-12 animate-fade-in-up relative z-10">
                     <p class="font-display italic text-lg mb-4 text-gray-700 dark:text-gray-300">"Assalamu’alaikum
                         Warahmatullahi Wabarakatuh"</p>
                     <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400 font-light max-w-xs mx-auto">
@@ -333,7 +379,8 @@
                 </div>
 
                 <!-- Groom -->
-                <div class="w-full flex flex-col items-center mb-16 animate-fade-in-up delay-200 relative z-10">
+                <div
+                    class="slide-left w-full flex flex-col items-center mb-16 relative z-10">
                     <div class="relative mb-6 group">
                         <div
                             class="absolute inset-0 border-2 border-primary dark:border-primary-light rounded-full transform rotate-45 scale-105 opacity-30 group-hover:scale-110 transition-transform duration-500">
@@ -363,7 +410,7 @@
                 </div>
 
                 <!-- Divider -->
-                <div class="relative w-full flex items-center justify-center my-4 animate-fade-in-up delay-300 z-10">
+                <div class="fade-section relative w-full flex items-center justify-center my-4 z-10">
                     <div
                         class="h-px bg-gradient-to-r from-transparent via-primary to-transparent dark:via-primary-light w-1/2 opacity-30">
                     </div>
@@ -374,7 +421,7 @@
                 </div>
 
                 <!-- Bride -->
-                <div class="w-full flex flex-col items-center mt-12 mb-12 animate-fade-in-up delay-500 relative z-10">
+                <div class="slide-right w-full flex flex-col items-center mt-12 mb-12 relative z-10">
                     <div class="relative mb-6 group">
                         <div
                             class="absolute inset-0 border-2 border-primary dark:border-primary-light rounded-full transform -rotate-45 scale-105 opacity-30 group-hover:scale-110 transition-transform duration-500">
@@ -406,16 +453,9 @@
 
             <!-- Love Story & Gallery Section -->
             <section id="love-story"
-                class="relative z-10 w-full flex flex-col items-center pt-12 pb-24 px-6 bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark">
-                <!-- Floral Background (reused or consistent) -->
-                <div
-                    class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0 opacity-10 dark:opacity-5">
-                    <img alt="Floral decoration top left"
-                        class="absolute -top-20 -left-20 w-64 h-64 object-cover rounded-full blur-sm transform rotate-45 mix-blend-multiply dark:mix-blend-lighten"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlWTbxPjcGSo94BRLmFwNwy-zHdlrAKBz0SyaGCrh-_WHiHR_9jFnf38g2uZg351uSNzOXiqWFBcD6AznL32o5muxVoOf_zB1PYNM2eHqC3XinaWdqCCy8h_JWhTTdnP3OmaTlO4u5JgGsL6CMgQG1N4aIQrb10jej3RklmH7DEFkJXlXSzWVwFjqcI6cpqvYr2qlSzV7Nf8reTbQnHbvAG8ZXyyWjocRY83yWTUSHhfQ2wvpFA-u_l9bDNSzdL-GaxTa7QbB-PF1L" />
-                </div>
+                class="relative z-10 w-full flex flex-col items-center pt-12 pb-24 px-6 bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark overflow-hidden">
 
-                <section class="text-center space-y-4 animate-fade-in-up relative z-10 w-full">
+                <section class="fade-section text-center space-y-4 animate-fade-in-up relative z-10 w-full">
                     <span
                         class="inline-block px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light text-xs uppercase tracking-widest rounded-full font-medium">The
                         Journey</span>
@@ -430,7 +470,7 @@
                 </section>
 
                 <section
-                    class="relative pl-6 border-l border-primary/20 dark:border-white/10 space-y-6 mt-12 w-full max-w-sm z-10">
+                    class="slide-left relative pl-6 border-l border-primary/20 dark:border-white/10 space-y-6 mt-12 w-full max-w-sm z-10">
                     <div
                         class="absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-background-light dark:ring-background-dark">
                     </div>
@@ -468,7 +508,7 @@
                 </section>
 
                 <section
-                    class="relative pl-6 border-l border-primary/20 dark:border-white/10 space-y-6 mt-8 w-full max-w-sm z-10">
+                    class="slide-right relative pl-6 border-l border-primary/20 dark:border-white/10 space-y-6 mt-8 w-full max-w-sm z-10">
                     <div
                         class="absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-background-light dark:ring-background-dark">
                     </div>
@@ -510,35 +550,44 @@
                         Captured Moments</p>
                 </section>
 
-                <section class="grid grid-cols-2 gap-4 w-full max-w-sm mt-6 z-10">
-                    <div class="col-span-2 h-64 rounded-xl overflow-hidden shadow-soft relative group">
+                <section class="fade-section grid grid-cols-2 gap-4 w-full max-w-sm mt-6 z-10">
+                    <div class="col-span-2 h-64 rounded-xl overflow-hidden shadow-soft relative group cursor-pointer"
+                        onclick="openGalleryModal(0)">
                         <img alt="Couple in traditional attire"
                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAogra_2d8RMxiwvK8V7jUjhoHGNPb6zer4E9_3jLgKMzBnnqY5QOmOjIBUA-oPKoEEduFcEQ3iEzF92paRmT4tnZjTa8CFHHYsoGBavQ0PuhphGcOFEarWiJ8umXQAHiUWmdtg7NMGFBi0dZHqn9qBMuaFZWNme2AA975bE0WUxPgq9nXIXIWagvItcPfhYp99_VReaR-_5RZyTgecWB3wgozxNrwuEsSPLek6_l2REMu7PGcDYBN5f1rvKGLS_osjgPZlPMXeolni" />
                         <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                        <div
+                            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="material-icons text-white/80 text-4xl drop-shadow-lg">fullscreen</span>
+                        </div>
                     </div>
-                    <div class="h-48 rounded-xl overflow-hidden shadow-soft relative group">
+                    <div class="h-48 rounded-xl overflow-hidden shadow-soft relative group cursor-pointer"
+                        onclick="openGalleryModal(1)">
                         <img alt="Minimalist studio portrait"
                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk454h7QgCC1ItPxRybhvP2he8aF7NK3a1V776FA3Tyjx-Eql0JL8qifDq55ojhqOdDQPc369PNBgWZmtjgrj1Rz0rHMbWwwJXb6DSskwwKtT6GN94nVjvmqXXsP9ylo2JjcU1QhN6S4ZxkjoF9MT5fdtCYDXD7i6_JXJ3wYtQlwkXyP_iCzJXtANqmSThch4t9s5hWPP9BT4x7E_D05XKIWaObBF40kkhpR8oOmumAjNuk7ELoti4PSHoZshGYbYbAf-lxowri969" />
+                        <div
+                            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10">
+                            <span class="material-icons text-white/80 text-3xl drop-shadow-lg">fullscreen</span>
+                        </div>
                     </div>
-                    <div class="h-48 rounded-xl overflow-hidden shadow-soft relative group">
+                    <div class="h-48 rounded-xl overflow-hidden shadow-soft relative group cursor-pointer"
+                        onclick="openGalleryModal(2)">
                         <img alt="Close up smile"
                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPTebz5Bqq_ejWcNVDmoRymcYjhIH9VAI5Kh5ybO-2olQty2eAQ_I0cqYcnaYgQ4hYdDQUJ26ErhkD5YbHzXqCWxznAgkSs4Yno41Pqa8Ts_iUD_0C6_cFunstyAVtM8JyQMkLdqU980lJJ748jKwAKQR6sGlQ2L-LtFW6kOr2AjF_t-JixFHURGb7y15g-DgjeoxRTliNhVI9kVOc9X0hBSOolK84gTQYHv3k1EMq8da49mVYacN8phz6wWBMBocUqi0_HDHC_USK" />
-                    </div>
-                    <div class="col-span-2 bg-white dark:bg-card-dark p-6 rounded-xl shadow-soft text-center space-y-3">
-                        <span class="material-icons text-primary/50 text-3xl">collections</span>
-                        <p class="font-serif text-lg text-primary dark:text-primary-light">See Full Gallery</p>
-                        <p class="text-xs text-text-muted-light dark:text-text-muted-dark">View all 48 photos from our
-                            session</p>
+                        <div
+                            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10">
+                            <span class="material-icons text-white/80 text-3xl drop-shadow-lg">fullscreen</span>
+                        </div>
                     </div>
                 </section>
             </section>
 
             <!-- Wedding Details (Events) Section -->
             <section id="events"
-                class="relative z-10 w-full flex flex-col items-center pt-12 pb-24 px-6 bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark transition-colors duration-300">
+                class="relative z-10 w-full flex flex-col items-center pt-12 pb-24 px-6 bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark transition-colors duration-300 overflow-hidden">
                 <!-- Background Decorations -->
                 <div
                     class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-secondary/20 to-transparent dark:from-primary/10 pointer-events-none">
@@ -551,14 +600,14 @@
                 </div>
 
                 <!-- Header -->
-                <div class="text-center animate-fade-in relative z-10 mb-8">
+                <div class="fade-section text-center animate-fade-in relative z-10 mb-8">
                     <h1 class="font-serif text-5xl italic font-medium text-primary mb-2">The Wedding</h1>
                     <p class="font-sans text-sm tracking-[0.2em] text-text-sub-light dark:text-text-sub-dark uppercase">
                         Of Adiba &amp; Habib</p>
                 </div>
 
                 <!-- Divider -->
-                <div class="flex items-center justify-center gap-4 animate-fade-in delay-100 mb-10 relative z-10">
+                <div class="fade-section flex items-center justify-center gap-4 mb-10 relative z-10">
                     <div class="h-px w-16 bg-gradient-to-r from-transparent to-accent"></div>
                     <span class="material-icons text-accent text-xl">spa</span>
                     <div class="h-px w-16 bg-gradient-to-l from-transparent to-accent"></div>
@@ -566,7 +615,7 @@
 
                 <!-- Akad Nikah Card -->
                 <div
-                    class="w-full max-w-sm bg-card-light dark:bg-card-dark rounded-2xl shadow-lg shadow-gray-200/50 dark:shadow-black/30 p-6 border border-secondary/30 dark:border-white/5 animate-fade-in delay-200 relative overflow-hidden group mb-8 z-10 transform transition hover:-translate-y-1 duration-500">
+                    class="slide-left w-full max-w-sm bg-card-light dark:bg-card-dark rounded-2xl shadow-lg shadow-gray-200/50 dark:shadow-black/30 p-6 border border-secondary/30 dark:border-white/5 relative overflow-hidden group mb-8 z-10 transform transition hover:-translate-y-1 duration-500">
                     <div
                         class="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110 duration-500">
                     </div>
@@ -610,7 +659,7 @@
 
                 <!-- Resepsi Card -->
                 <div
-                    class="w-full max-w-sm bg-card-light dark:bg-card-dark rounded-2xl shadow-lg shadow-gray-200/50 dark:shadow-black/30 p-6 border border-secondary/30 dark:border-white/5 animate-fade-in delay-300 relative overflow-hidden group mb-8 z-10 transform transition hover:-translate-y-1 duration-500">
+                    class="slide-right w-full max-w-sm bg-card-light dark:bg-card-dark rounded-2xl shadow-lg shadow-gray-200/50 dark:shadow-black/30 p-6 border border-secondary/30 dark:border-white/5 relative overflow-hidden group mb-8 z-10 transform transition hover:-translate-y-1 duration-500">
                     <div
                         class="absolute top-0 left-0 w-24 h-24 bg-primary/5 rounded-br-full -ml-8 -mt-8 transition-transform group-hover:scale-110 duration-500">
                     </div>
@@ -650,35 +699,21 @@
                 </div>
 
                 <!-- Bottom Buttons -->
-                <div class="w-full max-w-sm flex flex-col gap-3 animate-fade-in delay-500 z-10">
+                <div class="fade-section w-full max-w-sm flex flex-col gap-3 z-10">
                     <a class="w-full bg-card-light dark:bg-card-dark text-primary border border-primary/20 hover:bg-primary/5 py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-colors group"
                         href="https://maps.google.com">
                         <span class="material-icons group-hover:scale-110 transition-transform">map</span>
                         <span class="font-sans font-medium">Open Google Maps</span>
                     </a>
-                    <button
-                        class="w-full bg-primary text-white py-4 rounded-xl shadow-xl shadow-primary/30 hover:bg-primary/90 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
-                        <span class="material-icons">check_circle</span>
-                        <span class="font-sans font-medium">RSVP Now</span>
-                    </button>
                 </div>
             </section>
 
             <!-- Wedding Gift (Digital Gift) Section -->
             <section id="gift"
-                class="relative z-10 w-full flex flex-col items-center pb-32 bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark transition-colors duration-300">
-                <!-- Top Wave Separator -->
-                <div class="w-full h-32 overflow-hidden pointer-events-none z-0 -mt-1 block">
-                    <svg class="w-full h-full text-primary opacity-20 dark:opacity-10" preserveAspectRatio="none"
-                        viewBox="0 0 1440 320">
-                        <path
-                            d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-                            fill="currentColor" fill-opacity="1"></path>
-                    </svg>
-                </div>
+                class="fade-section relative z-10 w-full flex flex-col items-center pb-32 bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark transition-colors duration-300 overflow-hidden">
 
                 <div class="container mx-auto px-6 max-w-md flex flex-col items-center -mt-10 relative z-10">
-                    <header class="text-center mb-10 animate-fade-in relative z-10">
+                    <header class="fade-section text-center mb-10 relative z-10">
                         <span class="material-icons text-4xl text-primary mb-3">volunteer_activism</span>
                         <h1 class="font-serif text-4xl text-primary italic font-semibold mb-2">Wedding Gift</h1>
                         <p class="text-sm text-gray-600 dark:text-gray-400 font-light leading-relaxed max-w-xs mx-auto">
@@ -689,7 +724,7 @@
 
                     <!-- BCA Card -->
                     <div
-                        class="w-full bg-card-light dark:bg-card-dark shadow-lg rounded-2xl border border-primary/20 p-6 mb-6 relative overflow-hidden group transform transition hover:-translate-y-1 animate-fade-in delay-200">
+                        class="slide-left w-full bg-card-light dark:bg-card-dark shadow-lg rounded-2xl border border-primary/20 p-6 mb-6 relative overflow-hidden group transform transition hover:-translate-y-1">
                         <div class="absolute -right-6 -top-6 w-24 h-24 bg-primary/5 rounded-full z-0"></div>
                         <div class="relative z-10 flex flex-col items-center text-center">
                             <img alt="BCA Logo"
@@ -712,7 +747,7 @@
 
                     <!-- Dana Card -->
                     <div
-                        class="w-full bg-card-light dark:bg-card-dark shadow-lg rounded-2xl border border-primary/20 p-6 mb-8 relative overflow-hidden group transform transition hover:-translate-y-1 animate-fade-in delay-300">
+                        class="slide-right w-full bg-card-light dark:bg-card-dark shadow-lg rounded-2xl border border-primary/20 p-6 mb-8 relative overflow-hidden group transform transition hover:-translate-y-1">
                         <div class="absolute -left-6 -bottom-6 w-24 h-24 bg-accent-gold/10 rounded-full z-0"></div>
                         <div class="relative z-10 flex flex-col items-center text-center">
                             <div class="h-8 mb-4 flex items-center justify-center">
@@ -733,37 +768,21 @@
                             <p class="text-sm font-medium text-primary italic">a.n. Muhammad Habib</p>
                         </div>
                     </div>
-
-                    <!-- Confirm Button -->
-                    <a class="w-full py-3.5 px-6 rounded-xl bg-primary hover:bg-[#3d5a47] text-white font-medium text-center shadow-md shadow-primary/30 transition-all flex items-center justify-center gap-2 group animate-fade-in delay-500"
-                        href="#">
-                        <span class="material-icons text-sm group-hover:animate-pulse">check_circle</span>
-                        Confirm Transfer
-                    </a>
-
-                    <!-- Decorative Bottom -->
-                    <div class="mt-12 opacity-40 animate-fade-in delay-500">
-                        <svg fill="none" height="20" viewBox="0 0 100 20" width="100"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M50 20C50 20 20 15 0 10C20 5 50 0 50 0C50 0 80 5 100 10C80 15 50 20 50 20Z"
-                                fill="#4A6C56"></path>
-                        </svg>
-                    </div>
                 </div>
             </section>
 
             <!-- RSVP Section -->
             <section id="rsvp"
-                class="relative z-10 w-full flex flex-col items-center pb-24 bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 transition-colors duration-300">
+                class="relative z-10 w-full flex flex-col items-center pb-24 bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 transition-colors duration-300 overflow-hidden">
                 <div class="w-full max-w-md px-6 pt-12">
-                    <div class="text-center mb-8 animate-fade-in">
+                    <div class="fade-section text-center mb-8">
                         <h1 class="font-serif text-4xl text-primary mb-2 italic">Reservasi</h1>
                         <p class="text-gray-500 dark:text-gray-300 text-sm tracking-widest uppercase">Kehadiran Anda
                             Sangat Berarti</p>
                     </div>
 
                     <!-- Stats Grid -->
-                    <div class="grid grid-cols-2 gap-4 mb-8 animate-fade-in delay-200">
+                    <div class="fade-section grid grid-cols-2 gap-4 mb-8">
                         <div
                             class="bg-primary/10 dark:bg-black/20 p-4 rounded-xl text-center border border-primary/20 backdrop-blur-sm">
                             <span class="material-icons text-primary text-3xl mb-1">check_circle</span>
@@ -780,7 +799,7 @@
 
                     <!-- RSVP Form -->
                     <div
-                        class="bg-card-light dark:bg-surface-dark p-6 rounded-3xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-gray-700 animate-fade-in delay-300">
+                        class="slide-left bg-card-light dark:bg-surface-dark p-6 rounded-3xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-gray-700">
                         <form class="space-y-6">
                             <div class="group">
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 pl-1"
@@ -853,7 +872,7 @@
                     </div>
 
                     <!-- Wishes Feed -->
-                    <div class="mt-12 pt-8 border-t border-gray-100 dark:border-gray-700 animate-fade-in delay-500">
+                    <div class="fade-section mt-12 pt-8 border-t border-gray-100 dark:border-gray-700">
                         <h4 class="font-serif text-lg text-gray-800 dark:text-white mb-4 text-center">Ucapan Terbaru
                         </h4>
                         <div class="space-y-4">
@@ -891,10 +910,10 @@
 
             <!-- Featured Wishes & Closing Section -->
             <section id="closing"
-                class="relative z-10 w-full flex flex-col items-center pb-0 bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 transition-colors duration-300">
+                class="relative z-10 w-full flex flex-col items-center pb-0 bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 transition-colors duration-300 overflow-hidden">
                 <div class="w-full max-w-md px-6 pb-12">
                     <!-- Scrollable Wishes Wall -->
-                    <div class="space-y-4 max-h-[400px] overflow-y-auto pr-1 scroll-hidden relative animate-fade-in">
+                    <div class="fade-section space-y-4 max-h-[400px] overflow-y-auto pr-1 scroll-hidden relative">
                         <div
                             class="sticky top-0 bg-gradient-to-b from-background-light dark:from-background-dark to-transparent h-4 z-10 w-full pointer-events-none">
                         </div>
@@ -961,14 +980,8 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-center mt-4 mb-12 animate-fade-in delay-200">
-                        <button
-                            class="text-xs text-primary dark:text-primary-light underline underline-offset-4 decoration-accent-gold/50 hover:decoration-accent-gold transition-all">Load
-                            more wishes</button>
-                    </div>
-
                     <!-- Closing Message -->
-                    <div class="text-center relative animate-fade-in delay-300">
+                    <div class="fade-section text-center relative mt-8">
                         <div class="flex items-center justify-center text-accent-gold text-2xl mb-8">
                             <div class="h-px bg-accent-gold/50 flex-1 mx-4"></div>
                             <span class="material-icons">spa</span>
@@ -995,7 +1008,8 @@
                 </div>
 
                 <!-- Footer -->
-                <footer class="w-full bg-primary text-white py-8 text-center relative overflow-hidden mt-auto">
+                <footer
+                    class="fade-section w-full bg-primary text-white pt-8 pb-24 text-center relative overflow-hidden mt-auto">
                     <div
                         class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
                     </div>
@@ -1004,7 +1018,8 @@
                             from yourselves mates..."</p>
                         <p class="text-[10px] uppercase tracking-widest opacity-60 mt-2">Ar-Rum: 21</p>
                         <div class="w-12 h-0.5 bg-accent-gold/50 my-4 rounded-full"></div>
-                        <p class="text-[10px] opacity-50">Designed with <span class="text-red-300">❤</span> for your
+                        <p class="text-[10px] opacity-50 mb-5">Designed with <span class="text-red-300">❤</span> for
+                            your
                             special day</p>
                     </div>
                 </footer>
@@ -1097,9 +1112,9 @@
         </div>
 
         <!-- Music Button -->
-        <div class="absolute bottom-6 right-6 z-50">
+        <div id="music-container" class="absolute bottom-6 right-6 z-50 transition-all duration-500">
             <button id="music-btn" onclick="toggleMusic()"
-                class="w-10 h-10 rounded-full bg-white/20 dark:bg-black/30 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 transition-colors animate-spin-slow">
+                class="w-10 h-10 rounded-full bg-primary backdrop-blur-md flex items-center justify-center text-white hover:bg-primary/80 transition-colors animate-spin-slow">
                 <span class="material-icons text-xl">music_note</span>
             </button>
         </div>
@@ -1133,41 +1148,49 @@
             });
         }
 
-        // --- Theme Toggle Logic ---
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-
-        // Default to LIGHT mode. Only enable dark if explicitly saved.
-        if (localStorage.theme === 'dark') {
-            htmlElement.classList.add('dark');
-        } else {
-            htmlElement.classList.remove('dark');
-        }
-
-        if (themeToggleBtn) {
-            themeToggleBtn.addEventListener('click', () => {
-                htmlElement.classList.toggle('dark');
-                if (htmlElement.classList.contains('dark')) {
-                    localStorage.theme = 'dark';
-                } else {
-                    localStorage.theme = 'light';
-                }
-            });
-        }
-
         // --- Navbar Scroll Logic ---
         const nav = document.getElementById('floating-nav');
         const mainView = document.getElementById('main-view');
+        const musicContainer = document.getElementById('music-container');
 
         if (mainView && nav) {
             mainView.addEventListener('scroll', () => {
                 if (mainView.scrollTop > 300) {
-                    nav.classList.remove('opacity-0', '-translate-y-full');
+                    nav.classList.remove('opacity-0', 'translate-y-full');
+                    if (musicContainer) {
+                        musicContainer.classList.remove('bottom-6');
+                        musicContainer.classList.add('bottom-24');
+                    }
                 } else {
-                    nav.classList.add('opacity-0', '-translate-y-full');
+                    nav.classList.add('opacity-0', 'translate-y-full');
+                    if (musicContainer) {
+                        musicContainer.classList.add('bottom-6');
+                        musicContainer.classList.remove('bottom-24');
+                    }
                 }
             });
         }
+
+        // --- Fade In/Out Section Logic ---
+        const observerOptions = {
+            root: document.getElementById('main-view'), // Use main-view as viewport
+            threshold: 0.2, // Increased threshold
+            rootMargin: '0px 0px -150px 0px' // Negative margin at bottom to delay trigger until element is further up
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                } else {
+                    entry.target.classList.remove('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-section, .slide-left, .slide-right').forEach(section => {
+            observer.observe(section);
+        });
 
         // --- Music Logic ---
         let isPlaying = false;
@@ -1224,7 +1247,103 @@
                 cover.style.display = 'none';
             }, 1000);
         }
+
+        // --- Gallery Logic ---
+        const galleryImages = [
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuAogra_2d8RMxiwvK8V7jUjhoHGNPb6zer4E9_3jLgKMzBnnqY5QOmOjIBUA-oPKoEEduFcEQ3iEzF92paRmT4tnZjTa8CFHHYsoGBavQ0PuhphGcOFEarWiJ8umXQAHiUWmdtg7NMGFBi0dZHqn9qBMuaFZWNme2AA975bE0WUxPgq9nXIXIWagvItcPfhYp99_VReaR-_5RZyTgecWB3wgozxNrwuEsSPLek6_l2REMu7PGcDYBN5f1rvKGLS_osjgPZlPMXeolni",
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuDk454h7QgCC1ItPxRybhvP2he8aF7NK3a1V776FA3Tyjx-Eql0JL8qifDq55ojhqOdDQPc369PNBgWZmtjgrj1Rz0rHMbWwwJXb6DSskwwKtT6GN94nVjvmqXXsP9ylo2JjcU1QhN6S4ZxkjoF9MT5fdtCYDXD7i6_JXJ3wYtQlwkXyP_iCzJXtANqmSThch4t9s5hWPP9BT4x7E_D05XKIWaObBF40kkhpR8oOmumAjNuk7ELoti4PSHoZshGYbYbAf-lxowri969",
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuBPTebz5Bqq_ejWcNVDmoRymcYjhIH9VAI5Kh5ybO-2olQty2eAQ_I0cqYcnaYgQ4hYdDQUJ26ErhkD5YbHzXqCWxznAgkSs4Yno41Pqa8Ts_iUD_0C6_cFunstyAVtM8JyQMkLdqU980lJJ748jKwAKQR6sGlQ2L-LtFW6kOr2AjF_t-JixFHURGb7y15g-DgjeoxRTliNhVI9kVOc9X0hBSOolK84gTQYHv3k1EMq8da49mVYacN8phz6wWBMBocUqi0_HDHC_USK"
+        ];
+        let currentGalleryIndex = 0;
+
+        function openGalleryModal(index) {
+            currentGalleryIndex = index;
+            updateGalleryModal();
+            const modal = document.getElementById('gallery-modal');
+            modal.classList.remove('hidden');
+            // Small timeout to allow display:block to apply before opacity transition
+            setTimeout(() => {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGalleryModal() {
+            const modal = document.getElementById('gallery-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // Match duration-300
+            document.body.style.overflow = '';
+        }
+
+        function changeGallerySlide(direction) {
+            currentGalleryIndex += direction;
+            if (currentGalleryIndex >= galleryImages.length) {
+                currentGalleryIndex = 0;
+            } else if (currentGalleryIndex < 0) {
+                currentGalleryIndex = galleryImages.length - 1;
+            }
+            updateGalleryModal();
+        }
+
+        function updateGalleryModal() {
+            const img = document.getElementById('gallery-modal-image');
+            const counter = document.getElementById('gallery-counter');
+
+            // Fade out slightly before changing (optional polish)
+            img.style.opacity = '0.5';
+            setTimeout(() => {
+                img.src = galleryImages[currentGalleryIndex];
+                img.onload = () => { img.style.opacity = '1'; };
+            }, 150);
+
+            counter.innerText = `${currentGalleryIndex + 1} / ${galleryImages.length}`;
+        }
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeGalleryModal();
+            if (e.key === 'ArrowRight') changeGallerySlide(1);
+            if (e.key === 'ArrowLeft') changeGallerySlide(-1);
+        });
     </script>
+
+    <!-- Gallery Modal -->
+    <div id="gallery-modal"
+        class="fixed inset-0 z-[60] hidden flex items-center justify-center bg-black bg-opacity-95 transition-opacity duration-300 opacity-0 pointer-events-none">
+        <!-- Close Button -->
+        <button class="absolute top-4 right-4 text-white hover:text-gray-300 focus:outline-none z-50 p-2"
+            onclick="closeGalleryModal()">
+            <span class="material-icons text-3xl">close</span>
+        </button>
+
+        <!-- Prev Button -->
+        <button
+            class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 focus:outline-none z-50 p-2 bg-black/20 hover:bg-black/40 rounded-full backdrop-blur-sm transition-all"
+            onclick="changeGallerySlide(-1)">
+            <span class="material-icons text-4xl">chevron_left</span>
+        </button>
+
+        <!-- Next Button -->
+        <button
+            class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 focus:outline-none z-50 p-2 bg-black/20 hover:bg-black/40 rounded-full backdrop-blur-sm transition-all"
+            onclick="changeGallerySlide(1)">
+            <span class="material-icons text-4xl">chevron_right</span>
+        </button>
+
+        <!-- Image Container -->
+        <div class="relative max-w-4xl max-h-[85vh] w-full mx-4 flex items-center justify-center">
+            <img id="gallery-modal-image" src=""
+                class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl transition-transform duration-300"
+                alt="Gallery Fullscreen">
+        </div>
+
+        <!-- Counter/Caption -->
+        <div class="absolute bottom-6 left-0 right-0 text-center text-white/80 font-serif text-sm">
+            <span id="gallery-counter">1 / 3</span>
+        </div>
+    </div>
 </body>
 
 </html>
