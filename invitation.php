@@ -39,7 +39,7 @@ $recepMap = !empty($invitation['reception_map_link']) ? $invitation['reception_m
 
 // Helper function for asset paths
 function asset($path) {
-    return "undangan pernikahan/" . $path;
+    return "assets/" . str_replace('assets/', '', $path);
 }
 
 // Fetch Wishes
