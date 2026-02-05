@@ -66,9 +66,8 @@ $akadMap = $invitation['map_link'];
 $recepMap = !empty($invitation['reception_map_link']) ? $invitation['reception_map_link'] : $akadMap;
 
 // Helper function for asset paths
-function asset($path)
-{
-    return "undangan pernikahan/" . $path;
+function asset($path) {
+    return "assets/" . str_replace('assets/', '', $path);
 }
 
 // Fetch Wishes
