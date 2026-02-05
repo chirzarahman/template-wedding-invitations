@@ -214,6 +214,14 @@ $wishes = $stmt_wishes->fetchAll();
             }
         }
 
+        @keyframes swing-rotate {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-5deg); }
+            100% { transform: rotate(0deg); }
+        }
+
         .animate-fade-in-up {
             animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
             opacity: 0;
@@ -249,6 +257,10 @@ $wishes = $stmt_wishes->fetchAll();
 
         .animate-pulse-soft {
             animation: pulse-soft 2s ease-in-out infinite;
+        }
+
+        .animate-swing-rotate {
+            animation: swing-rotate 6s ease-in-out infinite;
         }
 
         .animate-fade-out {
@@ -388,38 +400,35 @@ $wishes = $stmt_wishes->fetchAll();
             </div>
         </section>
 
-        <!-- QUOTE -->
-        <?php if (in_array('quote', $features)): ?>
-            <section class="py-16 md:py-20 px-6 bg-white/30 backdrop-blur-sm border-y border-[#D4A855]/20">
-                <div class="max-w-3xl mx-auto text-center animate-on-scroll" data-animation="fade-in">
-                    <img src="<?= asset('assets/ilustrasi-1.svg') ?>" class="w-12 mx-auto mb-6 opacity-50">
-                    <p class="font-elegant text-xl md:text-2xl italic leading-relaxed text-[#5D3A1A]">
-                        "<?= htmlspecialchars($invitation['wishes_opening'] ?? 'Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri...') ?>"
-                    </p>
-                    <div class="mt-6 flex items-center justify-center gap-2">
-                        <div class="h-px w-8 bg-[#D4A855]"></div>
-                        <p class="text-xs font-bold tracking-widest text-[#D4A855]">QS. AR-RUM: 21</p>
-                        <div class="h-px w-8 bg-[#D4A855]"></div>
-                    </div>
+        <!-- Quote Section -->
+        <section class="py-16 md:py-20 px-6 bg-white/30">
+            <div class="max-w-3xl mx-auto text-center animate-on-scroll" data-animation="fade-in">
+                <img src="<?= asset('assets/ilustrasi-1.svg') ?>" class="w-12 mx-auto mb-6 opacity-50">
+                <p class="font-elegant text-xl md:text-2xl italic leading-relaxed text-[#5D3A1A]">
+                    "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."</p>
+                <div class="mt-6 flex items-center justify-center gap-2">
+                    <div class="h-px w-8 bg-[#D4A855]"></div>
+                    <p class="text-xs font-bold tracking-widest text-[#D4A855]">QS. AR-RUM: 21</p>
+                    <div class="h-px w-8 bg-[#D4A855]"></div>
                 </div>
-            </section>
-        <?php endif; ?>
+            </div>
+        </section>
 
         <!-- COUPLE -->
         <section id="couple" class="py-16 md:py-24 px-4 relative overflow-hidden">
             <!-- Background Texture -->
-            <div class="absolute top-0 right-0 w-64 opacity-5 pointer-events-none translate-x-1/2 -translate-y-1/2">
-                <img src="<?= asset('assets/ilustrasi-1.svg') ?>" class="w-full">
+            <div class="absolute top-[-50px] right-[-50px] w-64 md:w-80 pointer-events-none z-0">
+                <img src="<?= asset('assets/flower-1.svg') ?>" class="w-full animate-swing-rotate opacity-40">
             </div>
 
-            <div class="max-w-5xl mx-auto relative z-10">
+            <!-- Kalimat Pembuka / Doa -->
+            <div class="max-w-5xl mx-auto relative z-10 mt-6">
                 <div class="text-center mb-16 animate-on-scroll" data-animation="fade-in-down">
                     <div
                         class="inline-block px-4 py-1 rounded-full border border-[#D4A855]/50 text-[#D4A855] text-xs font-bold tracking-widest mb-4">
-                        ASSALAMU’ALAIKUM WR. WB.</div>
+                        Assalamu’alaikum wr. wb.</div>
                     <p class="text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-[#5D3A1A]">
-                        Dengan memohon Rahmat dan Ridho Allah SWT, kami bermaksud menyelenggarakan resepsi pernikahan
-                        putra-putri kami:
+                        "<?= htmlspecialchars($invitation['wishes_opening'] ?? 'Dengan memohon Rahmat dan Ridho Allah SWT, kami bermaksud menyelenggarakan resepsi pernikahan putra-putri kami:') ?>"
                     </p>
                 </div>
 

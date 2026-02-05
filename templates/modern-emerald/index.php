@@ -25,6 +25,7 @@ $groom_father = htmlspecialchars($invitation['groom_father'] ?? '');
 $groom_mother = htmlspecialchars($invitation['groom_mother'] ?? '');
 $bride_father = htmlspecialchars($invitation['bride_father'] ?? '');
 $bride_mother = htmlspecialchars($invitation['bride_mother'] ?? '');
+$wishes_opening = htmlspecialchars($invitation['wishes_opening'] ?? 'Dengan memohon Rahmat dan Ridho Allah SWT, kami bermaksud menyelenggarakan acara pernikahan putra-putri kami:');
 
 $event_date = $invitation['event_date'] ? date('l, d F Y', strtotime($invitation['event_date'])) : '';
 $akad_time = $invitation['event_date'] ? date('H:i', strtotime($invitation['event_date'])) : '08:00';
@@ -317,14 +318,16 @@ $seconds = max(0, floor($diff % 60));
         // Check if music_url is a SoundCloud link or local file
         $is_soundcloud = strpos($music_url, 'soundcloud.com') !== false;
         ?>
-        <?php if ($is_soundcloud): ?>
-            <iframe id="sc-player" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=<?= urlencode($music_url) ?>&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"
-                style="opacity: 0; position: absolute; pointer-events: none; z-index: -1;"></iframe>
-        <?php else: ?>
-            <audio id="audio-player" loop preload="auto" style="display: none;">
-                <source src="<?= htmlspecialchars($music_url) ?>" type="audio/mpeg">
-            </audio>
+        <?php if (!empty($music_url) && in_array('music', $features)): ?>
+            <?php if ($is_soundcloud): ?>
+                <iframe id="sc-player" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+                    src="https://w.soundcloud.com/player/?url=<?= urlencode($music_url) ?>&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"
+                    style="opacity: 0; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+            <?php else: ?>
+                <audio id="audio-player" loop preload="auto" style="display: none;">
+                    <source src="<?= htmlspecialchars($music_url) ?>" type="audio/mpeg">
+                </audio>
+            <?php endif; ?>
         <?php endif; ?>
 
 
@@ -373,6 +376,7 @@ $seconds = max(0, floor($diff % 60));
                     <h1 class="font-serif text-5xl drop-shadow-md mb-6"><?= $groom_nickname ?> <span
                             class="text-3xl italic text-accent-gold">&</span> <?= $bride_nickname ?></h1>
                     <p class="font-display text-2xl italic text-white/80"><?= $event_date ?></p>
+                    <?php if (in_array('countdown', $features) && $target_date): ?>
                     <div class="grid grid-cols-4 gap-3 max-w-xs mx-auto my-6">
                         <div class="p-2 rounded-lg bg-white/10 border border-white/10 text-center"><span id="cd-d"
                                 class="font-serif text-2xl"><?= str_pad($days, 2, '0', STR_PAD_LEFT) ?></span><span
@@ -387,6 +391,7 @@ $seconds = max(0, floor($diff % 60));
                                 class="font-serif text-2xl"><?= str_pad($seconds, 2, '0', STR_PAD_LEFT) ?></span><span
                                 class="block text-[0.6rem] uppercase opacity-80">Detik</span></div>
                     </div>
+                    <?php endif; ?>
                     <!-- <p class="text-xs uppercase opacity-75">Kepada Bapak/Ibu/Saudara/i</p>
                     <div class="font-semibold text-lg text-accent-gold"><?= $guest_name ?></div> -->
                 </div>
@@ -398,8 +403,8 @@ $seconds = max(0, floor($diff % 60));
                 <div class="fade-section text-center mb-12">
                     <p class="font-display italic text-lg text-gray-700 mb-4">"Assalamu'alaikum Warahmatullahi
                         Wabarakatuh"</p>
-                    <p class="text-sm text-gray-600 max-w-xs mx-auto">Dengan memohon Rahmat dan Ridho Allah SWT, kami
-                        bermaksud menyelenggarakan acara pernikahan putra-putri kami:</p>
+                    <!-- Kalimat Pembuka / Doa -->
+                    <p class="text-sm text-gray-600 max-w-xs mx-auto"><?= $wishes_opening ?></p>
                 </div>
                 <div class="slide-left w-full flex flex-col items-center mb-16">
                     <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-lg mb-6"><img
@@ -470,7 +475,7 @@ $seconds = max(0, floor($diff % 60));
             <?php endif; ?>
 
             <!-- Prewedding Gallery -->
-            <?php if (!empty($gallery_links)): ?>
+            <?php if (!empty($gallery_links) && in_array('gallery', $features)): ?>
                 <section class="pt-8 text-center space-y-4 w-full z-10 mt-8 relative">
                     <h2 class="font-serif text-3xl text-primary dark:text-primary-light">Prewedding Gallery</h2>
                     <p class="text-xs uppercase tracking-widest text-text-sub-light dark:text-text-sub-dark">Captured
@@ -580,6 +585,7 @@ $seconds = max(0, floor($diff % 60));
             <?php endif; ?>
 
             <!-- RSVP -->
+            <?php if (in_array('rsvp', $features)): ?>
             <section id="rsvp" class="relative w-full flex flex-col items-center pb-24 bg-background-light px-6 pt-12">
                 <div class="fade-section text-center mb-8">
                     <h1 class="font-serif text-4xl text-primary italic mb-2">Reservasi</h1>
@@ -618,13 +624,14 @@ $seconds = max(0, floor($diff % 60));
                     </form>
                 </div>
             </section>
+            <?php endif; ?>
 
             <!-- Closing Section with Wishes & Thank You -->
             <section id="closing"
                 class="relative z-10 w-full flex flex-col items-center pb-0 bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 transition-colors duration-300 overflow-hidden">
                 <div class="w-full max-w-md px-6 pb-12">
                     <!-- Scrollable Wishes Wall -->
-                    <?php if (!empty($wishes)): ?>
+                    <?php if (!empty($wishes) && in_array('wishes', $features)): ?>
                         <div class="fade-section space-y-4 max-h-[400px] overflow-y-auto pr-1 scroll-hidden relative">
                             <div
                                 class="sticky top-0 bg-gradient-to-b from-background-light dark:from-background-dark to-transparent h-4 z-10 w-full pointer-events-none">
@@ -727,9 +734,12 @@ $seconds = max(0, floor($diff % 60));
         </div>
 
         <!-- Music Button -->
+        <!-- Music Button -->
+        <?php if (!empty($music_url) && in_array('music', $features)): ?>
         <div id="music-container" class="absolute bottom-6 right-6 z-50"><button id="music-btn" onclick="toggleMusic()"
                 class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white animate-spin-slow"><span
                     class="material-icons">music_note</span></button></div>
+        <?php endif; ?>
         <div id="toast"
             class="fixed top-24 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-2 px-4 rounded-full opacity-0 transition-opacity z-50">
             <span class="material-icons text-sm text-green-400">check</span> Copied

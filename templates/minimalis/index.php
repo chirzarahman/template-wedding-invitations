@@ -19,6 +19,7 @@ $groom_father = htmlspecialchars($invitation['groom_father'] ?? '');
 $groom_mother = htmlspecialchars($invitation['groom_mother'] ?? '');
 $bride_father = htmlspecialchars($invitation['bride_father'] ?? '');
 $bride_mother = htmlspecialchars($invitation['bride_mother'] ?? '');
+$wishes_opening = htmlspecialchars($invitation['wishes_opening'] ?? 'Maha suci Allah yang telah menciptakan mahluk-Nya berpasang-pasangan. Ya Allah semoga ridho-Mu tercurah mengiringi pernikahan putra-putri kami:');
 
 $event_date = $invitation['event_date'] ? date('l, d F Y', strtotime($invitation['event_date'])) : '';
 $event_date_short = $invitation['event_date'] ? strtoupper(date('l, d F Y', strtotime($invitation['event_date']))) : '';
@@ -265,10 +266,12 @@ $seconds = max(0, floor($diff % 60));
                     </div>
 
                     <!-- Countdown Timer (Keep in Main View) -->
+                    <?php if (in_array('countdown', $features) && $target_date): ?>
                     <div
                         class="countdown-container animate-fade-in-up delay-300 mb-8 flex justify-center space-x-4 text-slate-200">
                         <!-- Filled by JS -->
                     </div>
+                    <?php endif; ?>
 
                     <!-- Scroll Indicator -->
                     <div class="animate-bounce mt-4">
@@ -290,9 +293,9 @@ $seconds = max(0, floor($diff % 60));
                     <p class="text-accent text-sm italic font-playfair tracking-widest mb-4">
                         "Assalamu’alaikum Warahmatullahi Wabarakatuh"
                     </p>
+                    <!-- Kalimat Pembuka / Doa -->
                     <p class="text-slate-300 text-xs font-light leading-relaxed px-6">
-                        Maha suci Allah yang telah menciptakan mahluk-Nya berpasang-pasangan.
-                        Ya Allah semoga ridho-Mu tercurah mengiringi pernikahan putra-putri kami:
+                        <?= $wishes_opening ?>
                     </p>
                 </div>
 
@@ -569,6 +572,7 @@ $seconds = max(0, floor($diff % 60));
             </section>
 
             <!-- Gallery Preview -->
+            <?php if (in_array('gallery', $features) && !empty($gallery_links)): ?>
             <section class="py-12 px-4 bg-gray-50 dark:bg-gray-800/50 relative z-30">
                 <div
                     class="text-center mb-8 scroll-element opacity-0 translate-y-10 transition-all duration-1000 ease-out">
@@ -608,8 +612,10 @@ $seconds = max(0, floor($diff % 60));
                 </div>
 
             </section>
+            <?php endif; ?>
 
             <!-- Digital Gift Section -->
+            <?php if (in_array('gift', $features)): ?>
             <section class="py-16 px-6 bg-[#fdf2f8] dark:bg-[#111827] relative z-30 text-slate-800 dark:text-slate-100">
                 <div
                     class="text-center mb-10 space-y-4 scroll-element opacity-0 translate-y-10 transition-all duration-1000 ease-out">
@@ -677,9 +683,11 @@ $seconds = max(0, floor($diff % 60));
                     </button>
                 </div> -->
             </section>
+            <?php endif; ?>
 
             <!-- RSVP & Guestbook Section -->
             <section class="py-16 px-6 bg-[#fdf2f8] dark:bg-[#111827] relative z-30 font-sans">
+                <?php if (in_array('rsvp', $features)): ?>
                 <div
                     class="text-center mb-10 scroll-element opacity-0 translate-y-10 transition-all duration-1000 ease-out">
                     <p class="text-xs tracking-[0.2em] uppercase text-gray-500 dark:text-gray-400 mb-2 font-serif">The
@@ -790,7 +798,9 @@ $seconds = max(0, floor($diff % 60));
                         </form>
                     </div>
                 </div>
+                <?php endif; ?>
 
+                <?php if (in_array('wishes', $features)): ?>
                 <div class="max-w-md mx-auto pb-10">
                     <div class="flex items-center justify-between mb-4 px-2">
                         <h3 class="text-lg font-serif font-semibold text-gray-800 dark:text-white">Recent Wishes</h3>
@@ -837,6 +847,7 @@ $seconds = max(0, floor($diff % 60));
                         <?php endif; ?>
                     </div>
                 </div>
+                <?php endif; ?>
             </section>
 
             <!-- Terima Kasih Section -->
@@ -947,12 +958,14 @@ $seconds = max(0, floor($diff % 60));
         </div>
 
         <!-- Music Floating Button -->
+        <?php if (!empty($music_url) && in_array('music', $features)): ?>
         <div class="absolute bottom-6 right-6 z-50">
             <button id="music-btn" onclick="toggleMusic()"
                 class="w-10 h-10 rounded-full bg-primary/90 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-lg animate-spin-slow hover:bg-primary transition-colors">
                 <span class="material-icons text-sm">music_note</span>
             </button>
         </div>
+        <?php endif; ?>
 
 
 
@@ -960,6 +973,7 @@ $seconds = max(0, floor($diff % 60));
     </div>
 
     <!-- Music Player (SoundCloud or HTML5 Audio) - MUST be before script -->
+    <?php if (in_array('music', $features) && !empty($music_url)): ?>
     <?php if (strpos($music_url, 'soundcloud.com') !== false): ?>
         <iframe id="sc-player" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
             src="https://w.soundcloud.com/player/?url=<?= urlencode($music_url) ?>&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"
@@ -976,6 +990,7 @@ $seconds = max(0, floor($diff % 60));
         <audio id="audio-player" loop preload="auto">
             <source src="<?= htmlspecialchars($audio_src) ?>" type="audio/mpeg">
         </audio>
+    <?php endif; ?>
     <?php endif; ?>
 
     <script>
