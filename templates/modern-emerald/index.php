@@ -192,7 +192,7 @@ $seconds = max(0, floor($diff % 60));
         }
 
         body {
-            min-height: max(884px, 100dvh);
+            min-height: 100dvh;
         }
 
         /* Custom Scrollbar with Primary Green */
@@ -334,15 +334,15 @@ $seconds = max(0, floor($diff % 60));
             class="absolute inset-0 z-0 h-full w-full overflow-y-auto overflow-x-hidden hidden opacity-0 transition-opacity duration-1000 scroll-smooth bg-background-light">
             <!-- Hero -->
             <section id="hero"
-                class="fade-section relative min-h-screen w-full flex flex-col justify-end items-center text-center bg-black">
+                class="fade-section relative min-h-[100dvh] w-full flex flex-col justify-end items-center text-center bg-black">
                 <div class="absolute inset-0"><img class="w-full h-full object-cover"
                         src="<?= $hero_image ?: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1000' ?>">
                     <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/90"></div>
                 </div>
-                <div class="relative z-20 pb-24 px-6 w-full max-w-md mx-auto text-white">
-                    <p class="text-sm tracking-[0.2em] uppercase opacity-90 mb-2">The Wedding Of</p>
-                    <h1 class="font-serif text-5xl drop-shadow-md mb-6"><?= $groom_nickname ?> <span
-                            class="text-3xl italic text-accent-gold">&</span> <?= $bride_nickname ?></h1>
+                <div class="relative z-20 pb-20 md:pb-24 px-6 w-full max-w-md mx-auto text-white">
+                    <p class="text-xs md:text-sm tracking-[0.2em] uppercase opacity-90 mb-2">The Wedding Of</p>
+                    <h1 class="font-serif text-4xl md:text-5xl drop-shadow-md mb-6 leading-tight"><?= $groom_nickname ?> <span
+                            class="text-2xl md:text-3xl italic text-accent-gold">&</span> <?= $bride_nickname ?></h1>
                     <p class="font-display text-2xl italic text-white/80"><?= $event_date ?></p>
                     <?php if (in_array('countdown', $features) && $target_date): ?>
                     <div class="grid grid-cols-4 gap-3 max-w-xs mx-auto my-6">
@@ -685,10 +685,10 @@ $seconds = max(0, floor($diff % 60));
                     src="<?= $hero_image ?: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1000' ?>">
             </div>
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/80"></div>
-            <div class="absolute inset-0 flex flex-col justify-end items-center pb-20 px-6 text-center z-10">
-                <p class="text-white/80 text-sm tracking-[0.2em] uppercase mb-2">The Wedding Of</p>
-                <h1 class="text-5xl text-white font-serif mb-8"><?= $groom_nickname ?> <span
-                        class="text-3xl italic">&</span> <?= $bride_nickname ?></h1>
+            <div class="absolute inset-0 flex flex-col justify-end items-center pb-24 md:pb-20 px-6 text-center z-10 min-h-[100dvh]">
+                <p class="text-white/80 text-xs md:text-sm tracking-[0.2em] uppercase mb-2">The Wedding Of</p>
+                <h1 class="text-4xl md:text-5xl text-white font-serif mb-8 leading-tight"><?= $groom_nickname ?> <span
+                        class="text-2xl md:text-3xl italic">&</span> <?= $bride_nickname ?></h1>
                 <!-- <div class="mb-10">
                     <p class="text-white/70 text-sm italic mb-2">Dear,</p>
                     <div class="bg-white/10 backdrop-blur-sm px-6 py-2 rounded-lg inline-block">
