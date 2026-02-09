@@ -129,6 +129,11 @@ try {
         // 3. File Upload Helper
         function uploadFile($fileInput, $prefix, $oldValue = '') {
             if (isset($_FILES[$fileInput]) && $_FILES[$fileInput]['error'] === UPLOAD_ERR_OK) {
+                // If uploading new file, delete old one
+                if (!empty($oldValue) && file_exists('../' . $oldValue)) {
+                    unlink('../' . $oldValue);
+                }
+                
                 $ext = pathinfo($_FILES[$fileInput]['name'], PATHINFO_EXTENSION);
                 $filename = 'uploads/' . uniqid($prefix . '_') . '.' . $ext;
                 if (move_uploaded_file($_FILES[$fileInput]['tmp_name'], '../' . $filename)) {
@@ -138,32 +143,66 @@ try {
             return $oldValue;
         }
 
+        // Helper to delete file if unmarked
+        function deleteFileIfNeeded($newValue, $oldValue) {
+            if (empty($newValue) && !empty($oldValue)) {
+                if (file_exists('../' . $oldValue)) {
+                    unlink('../' . $oldValue);
+                }
+            }
+        }
+
         // 4. Handle Single Files
-        $hero_image_link = $current['hero_image_link'] ?? '';
+        
+        // Hero Image
+        $original_hero = $current['hero_image_link'] ?? '';
+        $hero_image_link = $original_hero;
         if (isset($_POST['delete_hero']) && $_POST['delete_hero'] == '1') {
             $hero_image_link = '';
         }
         $hero_image_link = uploadFile('hero_image', 'hero', $hero_image_link);
+        deleteFileIfNeeded($hero_image_link, $original_hero);
 
-        $music_file = $current['music_file'] ?? '';
+        // Music File
+        $original_music = $current['music_file'] ?? '';
+        $music_file = $original_music;
         if (isset($_POST['delete_music']) && $_POST['delete_music'] == '1') {
             $music_file = '';
         }
         $music_file = uploadFile('music_file', 'music', $music_file);
+        deleteFileIfNeeded($music_file, $original_music);
 
         // Couple Photos
-        $groom_photo_link = $current['groom_photo'] ?? '';
+        $original_groom = $current['groom_photo'] ?? '';
+        $groom_photo_link = $original_groom;
         if(isset($_POST['delete_groom_photo']) && $_POST['delete_groom_photo'] == '1') $groom_photo_link = '';
         $groom_photo_link = uploadFile('groom_photo', 'groom', $groom_photo_link);
+        deleteFileIfNeeded($groom_photo_link, $original_groom);
 
-        $bride_photo_link = $current['bride_photo'] ?? '';
+        $original_bride = $current['bride_photo'] ?? '';
+        $bride_photo_link = $original_bride;
         if(isset($_POST['delete_bride_photo']) && $_POST['delete_bride_photo'] == '1') $bride_photo_link = '';
         $bride_photo_link = uploadFile('bride_photo', 'bride', $bride_photo_link);
+        deleteFileIfNeeded($bride_photo_link, $original_bride);
 
         // 5. Handle Gallery (Multiple) - JSON Based
         // Receive existing images that user KEPT (hidden inputs)
-        $existing_gallery = isset($_POST['existing_gallery']) ? $_POST['existing_gallery'] : []; 
-        if(!is_array($existing_gallery)) $existing_gallery = [];
+        $kept_gallery = isset($_POST['existing_gallery']) ? $_POST['existing_gallery'] : []; 
+        if(!is_array($kept_gallery)) $kept_gallery = [];
+
+        // Identify Deleted Gallery Images
+        $original_gallery = isset($current['gallery_links']) ? json_decode($current['gallery_links'], true) : [];
+        if(is_array($original_gallery)) {
+            $deleted_gallery = array_diff($original_gallery, $kept_gallery);
+            foreach ($deleted_gallery as $del_img) {
+                if (!empty($del_img) && file_exists('../' . $del_img)) {
+                    unlink('../' . $del_img);
+                }
+            }
+        }
+
+        // Setup for new list
+        $final_gallery = $kept_gallery;
 
         // Add New Uploads
         if (isset($_FILES['gallery_images'])) {
@@ -173,12 +212,12 @@ try {
                     $ext = pathinfo($_FILES['gallery_images']['name'][$i], PATHINFO_EXTENSION);
                     $filename = 'uploads/' . uniqid('gallery_') . '.' . $ext;
                     if (move_uploaded_file($_FILES['gallery_images']['tmp_name'][$i], '../' . $filename)) {
-                        $existing_gallery[] = $filename;
+                        $final_gallery[] = $filename;
                     }
                 }
             }
         }
-        $gallery_links = json_encode(array_values($existing_gallery)); // Re-encode as JSON
+        $gallery_links = json_encode(array_values($final_gallery)); // Re-encode as JSON
 
 
         // 6. Slug Generation (If Create)
