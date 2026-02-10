@@ -695,12 +695,7 @@ $seconds = max(0, floor($diff % 60));
                         <p class="text-xl text-white font-serif"><?= $guest_name ?></p>
                     </div>
                 </div> -->
-                <div class="mb-8 z-20">
-                    <p class="text-white/70 text-sm italic mb-2">Kepada Bapak/Ibu/Saudara/i</p>
-                    <div class="bg-white/10 backdrop-blur-sm px-8 py-3 rounded-xl border border-white/20 inline-block">
-                        <p class="text-xl text-white font-serif"><?= $guest_name ?></p>
-                    </div>
-                </div>
+
                 <button onclick="openInvitation()"
                     class="px-8 py-3 bg-primary text-secondary font-semibold rounded-full shadow-lg w-4/5 max-w-xs flex items-center justify-center gap-2">Buka
                     Undangan</button>
