@@ -156,39 +156,7 @@ $seconds = max(0, floor($diff % 60));
             scroll-behavior: smooth;
         }
 
-        .bokeh {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            filter: blur(8px);
-        }
 
-        .bokeh:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            top: 20%;
-            left: 10%;
-            opacity: 0.3;
-            animation: float 8s infinite;
-        }
-
-        .bokeh:nth-child(2) {
-            width: 40px;
-            height: 40px;
-            top: 40%;
-            right: 20%;
-            opacity: 0.2;
-            animation: float 6s infinite reverse;
-        }
-
-        .bokeh:nth-child(3) {
-            width: 60px;
-            height: 60px;
-            top: 60%;
-            left: 30%;
-            opacity: 0.25;
-            animation: float 7s infinite 1s;
-        }
 
         .fade-section {
             opacity: 0;
@@ -224,7 +192,7 @@ $seconds = max(0, floor($diff % 60));
         }
 
         body {
-            min-height: max(884px, 100dvh);
+            min-height: 100dvh;
         }
 
         /* Custom Scrollbar with Primary Green */
@@ -366,10 +334,10 @@ $seconds = max(0, floor($diff % 60));
             class="absolute inset-0 z-0 h-full w-full overflow-y-auto overflow-x-hidden hidden opacity-0 transition-opacity duration-1000 scroll-smooth bg-background-light">
             <!-- Hero -->
             <section id="hero"
-                class="fade-section relative min-h-screen w-full flex flex-col justify-end items-center text-center bg-black">
+                class="fade-section relative min-h-[100dvh] w-full flex flex-col justify-end items-center text-center bg-black">
                 <div class="absolute inset-0"><img class="w-full h-full object-cover"
                         src="<?= $hero_image ?: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1000' ?>">
-                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/80"></div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/90"></div>
                 </div>
                 <div class="relative z-20 pb-20 md:pb-24 px-6 w-full max-w-md mx-auto text-white">
                     <p class="text-xs md:text-sm tracking-[0.2em] uppercase opacity-90 mb-2">The Wedding Of</p>
@@ -477,7 +445,7 @@ $seconds = max(0, floor($diff % 60));
 
             <!-- Prewedding Gallery -->
             <?php if (!empty($gallery_links) && in_array('gallery', $features)): ?>
-                <section class="pt-8 text-center space-y-4 w-full z-10 mt-8 relative">
+                <section class="pt-12 pb-8 text-center space-y-4 w-full z-10 mt-8 relative bg-primary/5">
                     <h2 class="font-serif text-3xl text-primary dark:text-primary-light">Prewedding Gallery</h2>
                     <p class="text-xs uppercase tracking-widest text-text-sub-light dark:text-text-sub-dark">Captured
                         Moments</p>
