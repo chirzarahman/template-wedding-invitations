@@ -160,7 +160,7 @@ if (isset($invitation['visual_style']) && isset($style_map[$invitation['visual_s
                                 placeholder="Cth: Rizky" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold mb-1.5">Nama Orang Tua</label>
+                            <label class="block text-sm font-semibold mb-1.5">Nama Orang Tua <small class="text-red-500">(Tanpa Panggilan Bapak)</small></label>
                             <div class="grid grid-cols-2 gap-3">
                                 <input type="text" name="groom_father"
                                     value="<?= htmlspecialchars($invitation['groom_father'] ?? '') ?>"
@@ -223,7 +223,7 @@ if (isset($invitation['visual_style']) && isset($style_map[$invitation['visual_s
                                 placeholder="Cth: Lesti" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold mb-1.5">Nama Orang Tua</label>
+                            <label class="block text-sm font-semibold mb-1.5">Nama Orang Tua <small class="text-red-500">(Tanpa Panggilan Bapak)</small></label>
                             <div class="grid grid-cols-2 gap-3">
                                 <input type="text" name="bride_father"
                                     value="<?= htmlspecialchars($invitation['bride_father'] ?? '') ?>"

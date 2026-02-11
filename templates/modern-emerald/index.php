@@ -41,7 +41,7 @@ $hero_image = $invitation['hero_image_link'] ?? '';
 $groom_photo = $invitation['groom_photo'] ?? '';
 $bride_photo = $invitation['bride_photo'] ?? '';
 
-$guest_name = isset($_GET['to']) ? htmlspecialchars($_GET['to']) : 'Tamu Undangan';
+// $guest_name = isset($_GET['to']) ? htmlspecialchars($_GET['to']) : 'Tamu Undangan';
 
 // Gift info
 $gifts = json_decode($invitation['gifts'] ?? '[]', true) ?: [];
@@ -371,26 +371,27 @@ $seconds = max(0, floor($diff % 60));
                         src="<?= $hero_image ?: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1000' ?>">
                     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/80"></div>
                 </div>
-                <div class="relative z-20 pb-24 px-6 w-full max-w-md mx-auto text-white">
-                    <p class="text-sm tracking-[0.2em] uppercase opacity-90 mb-2">The Wedding Of</p>
-                    <h1 class="font-serif text-5xl drop-shadow-md mb-6"><?= $groom_nickname ?> <span
-                            class="text-3xl italic text-accent-gold">&</span> <?= $bride_nickname ?></h1>
+                <div class="relative z-20 pb-20 md:pb-24 px-6 w-full max-w-md mx-auto text-white">
+                    <p class="text-xs md:text-sm tracking-[0.2em] uppercase opacity-90 mb-2">The Wedding Of</p>
+                    <h1 class="font-serif text-4xl md:text-5xl drop-shadow-md mb-6 leading-tight"><?= $groom_nickname ?>
+                        <span class="text-2xl md:text-3xl italic text-accent-gold">&</span> <?= $bride_nickname ?>
+                    </h1>
                     <p class="font-display text-2xl italic text-white/80"><?= $event_date ?></p>
                     <?php if (in_array('countdown', $features) && $target_date): ?>
-                    <div class="grid grid-cols-4 gap-3 max-w-xs mx-auto my-6">
-                        <div class="p-2 rounded-lg bg-white/10 border border-white/10 text-center"><span id="cd-d"
-                                class="font-serif text-2xl"><?= str_pad($days, 2, '0', STR_PAD_LEFT) ?></span><span
-                                class="block text-[0.6rem] uppercase opacity-80">Hari</span></div>
-                        <div class="p-2 rounded-lg bg-white/10 border border-white/10 text-center"><span id="cd-h"
-                                class="font-serif text-2xl"><?= str_pad($hours, 2, '0', STR_PAD_LEFT) ?></span><span
-                                class="block text-[0.6rem] uppercase opacity-80">Jam</span></div>
-                        <div class="p-2 rounded-lg bg-white/10 border border-white/10 text-center"><span id="cd-m"
-                                class="font-serif text-2xl"><?= str_pad($minutes, 2, '0', STR_PAD_LEFT) ?></span><span
-                                class="block text-[0.6rem] uppercase opacity-80">Menit</span></div>
-                        <div class="p-2 rounded-lg bg-white/10 border border-white/10 text-center"><span id="cd-s"
-                                class="font-serif text-2xl"><?= str_pad($seconds, 2, '0', STR_PAD_LEFT) ?></span><span
-                                class="block text-[0.6rem] uppercase opacity-80">Detik</span></div>
-                    </div>
+                        <div class="grid grid-cols-4 gap-3 max-w-xs mx-auto my-6">
+                            <div class="p-2 rounded-lg bg-white/10 border border-white/10 text-center"><span id="cd-d"
+                                    class="font-serif text-2xl"><?= str_pad($days, 2, '0', STR_PAD_LEFT) ?></span><span
+                                    class="block text-[0.6rem] uppercase opacity-80">Hari</span></div>
+                            <div class="p-2 rounded-lg bg-white/10 border border-white/10 text-center"><span id="cd-h"
+                                    class="font-serif text-2xl"><?= str_pad($hours, 2, '0', STR_PAD_LEFT) ?></span><span
+                                    class="block text-[0.6rem] uppercase opacity-80">Jam</span></div>
+                            <div class="p-2 rounded-lg bg-white/10 border border-white/10 text-center"><span id="cd-m"
+                                    class="font-serif text-2xl"><?= str_pad($minutes, 2, '0', STR_PAD_LEFT) ?></span><span
+                                    class="block text-[0.6rem] uppercase opacity-80">Menit</span></div>
+                            <div class="p-2 rounded-lg bg-white/10 border border-white/10 text-center"><span id="cd-s"
+                                    class="font-serif text-2xl"><?= str_pad($seconds, 2, '0', STR_PAD_LEFT) ?></span><span
+                                    class="block text-[0.6rem] uppercase opacity-80">Detik</span></div>
+                        </div>
                     <?php endif; ?>
                     <!-- <p class="text-xs uppercase opacity-75">Kepada Bapak/Ibu/Saudara/i</p>
                     <div class="font-semibold text-lg text-accent-gold"><?= $guest_name ?></div> -->
@@ -586,44 +587,44 @@ $seconds = max(0, floor($diff % 60));
 
             <!-- RSVP -->
             <?php if (in_array('rsvp', $features)): ?>
-            <section id="rsvp" class="relative w-full flex flex-col items-center pb-24 bg-background-light px-6 pt-12">
-                <div class="fade-section text-center mb-8">
-                    <h1 class="font-serif text-4xl text-primary italic mb-2">Reservasi</h1>
-                    <p class="text-gray-500 text-sm uppercase tracking-widest">Kehadiran Anda Sangat Berarti</p>
-                </div>
-                <div class="fade-section grid grid-cols-2 gap-4 w-full max-w-sm mb-8">
-                    <div class="bg-primary/10 p-4 rounded-xl text-center"><span
-                            class="material-icons text-primary text-3xl">check_circle</span>
-                        <h3 class="font-serif text-2xl font-bold"><?= $total_present ?></h3>
-                        <p class="text-xs uppercase">Total Hadir</p>
+                <section id="rsvp" class="relative w-full flex flex-col items-center pb-24 bg-background-light px-6 pt-12">
+                    <div class="fade-section text-center mb-8">
+                        <h1 class="font-serif text-4xl text-primary italic mb-2">Reservasi</h1>
+                        <p class="text-gray-500 text-sm uppercase tracking-widest">Kehadiran Anda Sangat Berarti</p>
                     </div>
-                    <div class="bg-red-50 p-4 rounded-xl text-center"><span
-                            class="material-icons text-red-400 text-3xl">cancel</span>
-                        <h3 class="font-serif text-2xl font-bold"><?= $total_absent ?></h3>
-                        <p class="text-xs uppercase">Tidak Hadir</p>
+                    <div class="fade-section grid grid-cols-2 gap-4 w-full max-w-sm mb-8">
+                        <div class="bg-primary/10 p-4 rounded-xl text-center"><span
+                                class="material-icons text-primary text-3xl">check_circle</span>
+                            <h3 class="font-serif text-2xl font-bold"><?= $total_present ?></h3>
+                            <p class="text-xs uppercase">Total Hadir</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-xl text-center"><span
+                                class="material-icons text-red-400 text-3xl">cancel</span>
+                            <h3 class="font-serif text-2xl font-bold"><?= $total_absent ?></h3>
+                            <p class="text-xs uppercase">Tidak Hadir</p>
+                        </div>
                     </div>
-                </div>
-                <div class="slide-left bg-white p-6 rounded-3xl shadow-lg w-full max-w-sm">
-                    <form action="guest_handler.php" method="POST" class="space-y-4">
-                        <input type="hidden" name="invitation_id" value="<?= $id ?>">
-                        <input type="hidden" name="slug" value="<?= htmlspecialchars($invitation['slug'] ?? '') ?>">
-                        <div><label class="block text-sm font-medium mb-2">Nama</label><input name="name"
-                                class="w-full px-4 py-3 bg-gray-50 rounded-xl" placeholder="Nama Anda" required></div>
-                        <div><label class="block text-sm font-medium mb-2">Kehadiran</label><select name="status"
-                                class="w-full px-4 py-3 bg-gray-50 rounded-xl" required>
-                                <option value="">Pilih...</option>
-                                <option value="present">Hadir</option>
-                                <option value="absent">Tidak Hadir</option>
-                            </select></div>
-                        <div><label class="block text-sm font-medium mb-2">Ucapan</label><textarea name="message"
-                                class="w-full px-4 py-3 bg-gray-50 rounded-xl resize-none" rows="3"
-                                placeholder="Ucapan & Doa..."></textarea></div>
-                        <button
-                            class="w-full bg-primary text-white py-4 rounded-xl font-medium flex items-center justify-center gap-2"><span>Kirim</span><span
-                                class="material-icons text-sm">send</span></button>
-                    </form>
-                </div>
-            </section>
+                    <div class="slide-left bg-white p-6 rounded-3xl shadow-lg w-full max-w-sm">
+                        <form action="guest_handler.php" method="POST" class="space-y-4">
+                            <input type="hidden" name="invitation_id" value="<?= $id ?>">
+                            <input type="hidden" name="slug" value="<?= htmlspecialchars($invitation['slug'] ?? '') ?>">
+                            <div><label class="block text-sm font-medium mb-2">Nama</label><input name="name"
+                                    class="w-full px-4 py-3 bg-gray-50 rounded-xl" placeholder="Nama Anda" required></div>
+                            <div><label class="block text-sm font-medium mb-2">Kehadiran</label><select name="status"
+                                    class="w-full px-4 py-3 bg-gray-50 rounded-xl" required>
+                                    <option value="">Pilih...</option>
+                                    <option value="present">Hadir</option>
+                                    <option value="absent">Tidak Hadir</option>
+                                </select></div>
+                            <div><label class="block text-sm font-medium mb-2">Ucapan</label><textarea name="message"
+                                    class="w-full px-4 py-3 bg-gray-50 rounded-xl resize-none" rows="3"
+                                    placeholder="Ucapan & Doa..."></textarea></div>
+                            <button
+                                class="w-full bg-primary text-white py-4 rounded-xl font-medium flex items-center justify-center gap-2"><span>Kirim</span><span
+                                    class="material-icons text-sm">send</span></button>
+                        </form>
+                    </div>
+                </section>
             <?php endif; ?>
 
             <!-- Closing Section with Wishes & Thank You -->
@@ -694,39 +695,36 @@ $seconds = max(0, floor($diff % 60));
 
                 <!-- Footer -->
                 <footer
-                    class="fade-section w-full bg-primary text-white pt-8 pb-24 text-center relative overflow-hidden mt-auto">
+                    class="fade-section w-full bg-primary text-white pt-8 pb-40 text-center relative overflow-hidden mt-auto">
                     <div
                         class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
                     </div>
                     <div class="relative z-10 flex flex-col items-center justify-center gap-2 px-6">
-                        <p class="font-serif italic text-lg opacity-90">"Dan di antara tanda-tanda kekuasaan-Nya ialah
-                            Dia
-                            menciptakan untukmu pasangan-pasangan..."</p>
+                        <p class="font-serif italic text-lg opacity-90">"Dan di antara tanda-tanda (kebesaran)-Nya ialah
+                            Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan
+                            merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh,
+                            pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang
+                            berpikir."</p>
                         <p class="text-[10px] uppercase tracking-widest opacity-60 mt-2">Ar-Rum: 21</p>
                         <div class="w-12 h-0.5 bg-accent-gold/50 my-4 rounded-full"></div>
                         <p class="text-[10px] opacity-50 mb-5">&copy; <?= date('Y') ?>
                             SyifazharStudio. All Rights Reserved.</p>
                     </div>
                 </footer>
+                <div class="md:hidden h-32 w-full pointer-events-none"></div>
             </section>
         </div>
 
         <!-- COVER VIEW -->
-        <div id="cover-view" class="absolute inset-0 z-40 transition-all duration-1000 bg-black">
+        <div id="cover-view" class="fixed inset-0 z-50 transition-all duration-1000 bg-black">
             <div class="absolute inset-0"><img class="w-full h-full object-cover"
                     src="<?= $hero_image ?: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1000' ?>">
             </div>
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/80"></div>
-            <div class="absolute inset-0 flex flex-col justify-end items-center pb-20 px-6 text-center z-10">
-                <p class="text-white/80 text-sm tracking-[0.2em] uppercase mb-2">The Wedding Of</p>
-                <h1 class="text-5xl text-white font-serif mb-8"><?= $groom_nickname ?> <span
-                        class="text-3xl italic">&</span> <?= $bride_nickname ?></h1>
-                <!-- <div class="mb-10">
-                    <p class="text-white/70 text-sm italic mb-2">Dear,</p>
-                    <div class="bg-white/10 backdrop-blur-sm px-6 py-2 rounded-lg inline-block">
-                        <p class="text-xl text-white font-serif"><?= $guest_name ?></p>
-                    </div>
-                </div> -->
+            <div class="absolute inset-0 h-full flex flex-col justify-end items-center pb-32 px-6 text-center z-10">
+                <p class="text-white/80 text-xs md:text-sm tracking-[0.2em] uppercase mb-2">The Wedding Of</p>
+                <h1 class="text-4xl md:text-5xl text-white font-serif mb-8 leading-tight"><?= $groom_nickname ?> <span
+                        class="text-2xl md:text-3xl italic">&</span> <?= $bride_nickname ?></h1>
                 <button onclick="openInvitation()"
                     class="px-8 py-3 bg-primary text-secondary font-semibold rounded-full shadow-lg w-4/5 max-w-xs flex items-center justify-center gap-2">Buka
                     Undangan</button>
@@ -734,11 +732,10 @@ $seconds = max(0, floor($diff % 60));
         </div>
 
         <!-- Music Button -->
-        <!-- Music Button -->
         <?php if (!empty($music_url) && in_array('music', $features)): ?>
-        <div id="music-container" class="absolute bottom-6 right-6 z-50"><button id="music-btn" onclick="toggleMusic()"
-                class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white animate-spin-slow"><span
-                    class="material-icons">music_note</span></button></div>
+            <div id="music-container" class="fixed bottom-6 right-6 z-[100]"><button id="music-btn" onclick="toggleMusic()"
+                    class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white animate-spin-slow shadow-lg"><span
+                        class="material-icons">music_note</span></button></div>
         <?php endif; ?>
         <div id="toast"
             class="fixed top-24 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-2 px-4 rounded-full opacity-0 transition-opacity z-50">
@@ -836,6 +833,10 @@ $seconds = max(0, floor($diff % 60));
             const cover = document.getElementById('cover-view'), main = document.getElementById('main-view');
             cover.style.transform = "translateY(-100%)"; cover.style.opacity = "0";
             main.classList.remove('hidden'); setTimeout(() => main.classList.remove('opacity-0'), 50);
+
+            // Show music button
+            const musicContainer = document.getElementById('music-container');
+            if (musicContainer) musicContainer.classList.remove('hidden');
 
             // Try to play music
             const btn = document.getElementById('music-btn');

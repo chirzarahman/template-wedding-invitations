@@ -209,11 +209,11 @@ $seconds = max(0, floor($diff % 60));
 
     <!-- Main Mobile Container -->
     <div id="main-container"
-        class="relative w-full h-[100dvh] max-w-md bg-primary dark:bg-slate-900 shadow-2xl overflow-hidden flex flex-col">
+        class="relative w-full min-h-screen max-w-md bg-primary dark:bg-slate-900 shadow-2xl flex flex-col">
 
         <!-- ================= MAIN VIEW (Cover 2 / Inner Content) ================= -->
         <div id="main-view"
-            class="absolute inset-0 z-0 h-full w-full overflow-y-auto hidden opacity-0 transition-opacity duration-1000 scroll-smooth">
+            class="relative w-full hidden opacity-0 transition-opacity duration-1000">
 
             <!-- Hero Section -->
             <div class="relative w-full h-[100dvh]">
@@ -887,7 +887,8 @@ $seconds = max(0, floor($diff % 60));
 
 
         <!-- ================= COVER VIEW (Cover 1 / Unlock Screen) ================= -->
-        <div id="cover-view" class="absolute inset-0 z-40 transition-all duration-1000 ease-in-out transform">
+        <!-- ================= COVER VIEW (Unlock Screen) ================= -->
+        <div id="cover-view" class="fixed inset-0 z-50 transition-all duration-1000 ease-in-out transform bg-primary">
             <!-- Background Image Section -->
             <div class="absolute inset-0 z-0 h-[70%] w-full">
                 <img alt="Happy couple wedding portrait"
